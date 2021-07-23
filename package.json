@@ -1,0 +1,26 @@
+{
+  "name": "blog-mern",
+  "version": "1.0.0",
+  "description": "A complete Blog website with create, edit and delete",
+  "main": "server.js",
+  "scripts": {
+    "start": "npm server",
+    "server": "nodemon server"
+  },
+  "author": "Sabari Nathan",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "gravatar": "^1.8.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.3",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.12"
+  }
+}
