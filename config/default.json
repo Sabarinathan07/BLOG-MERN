@@ -1,3 +1,4 @@
 {
-    "MONGO_URI" :"mongodb://localhost:27017/blog-mern"
+    "MONGO_URI" :"mongodb://localhost:27017/blog-mern",
+    "JWT_TOKEN" : "jfguasgduyfsauygdhjasf7*)&&^T^&%$%#$ETR##6%SADAE6X"
 }
