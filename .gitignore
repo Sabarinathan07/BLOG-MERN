@@ -1,3 +1,4 @@
 node_modules/
 client/.eslintcache
 .DS_Store/
+default.json/
