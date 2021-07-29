@@ -1,7 +1,7 @@
 {
   "name": "blog-mern",
   "version": "1.0.0",
-  "description": "A complete Blog website with create, edit and delete",
+  "description": "A complete BLOG website with create, edit and delete",
   "main": "server.js",
   "scripts": {
     "start": "npm server",

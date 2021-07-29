@@ -7,6 +7,7 @@ const { check, validationResult } = require('express-validator');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 // @route GET api/profile/me
 // @description get current users profile
@@ -19,9 +20,9 @@ router.get('/me', auth, async (req, res) => {
 
 		if (!profile) {
 			return res.status(400).json({ msg: 'There is no profile for this user' });
-        }
-        
-        res.json(profile);
+		}
+
+		res.json(profile);
 	} catch (error) {
 		console.error(error.message);
 		res.status(500).send('Server error profile');
@@ -147,8 +148,8 @@ router.get('/user/:user_id', async (req, res) => {
 // @access Public
 router.delete('/', auth, async (req, res) => {
 	try {
-		//todo - remove user posts
-
+		//Remove user post
+		await Post.deleteMany({ user: req.user.id });
 		//remove profile
 		await Profile.findOneAndRemove({ user: req.user.id });
 		//remove user
@@ -296,32 +297,37 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 	}
 });
 
-// // @route DELETE api/profile/github/:username
+// // @route GET api/profile/github/:username
 // // @description get user repos from github
 // // @access Public
 // router.get('/github/:username', (req, res) => {
-//     try {
-//         const options = {
-//             uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${config.get('githubClientId')}&client_secret=${config.get('githubSecret')}`,
-//             method: 'GET',
-//             headers: {'user-agent':'node.js'}
-//         }
+// 	try {
+// 		const options = {
+// 			uri: encodeURI(
+// 				`https://api.github.com/users/${
+// 					req.params.username
+// 				}/repos?per_page=5&sort=created:asc&client_id=${config.get(
+// 					'githubClientId'
+// 				)}&client_secret=${config.get('githubSecret')}`
+// 			),
+// 			method: 'GET',
+// 			headers: { 'user-agent': 'node.js' },
+// 		};
 
-//         request(options, (error, response, body) => {
-//             if (error) return console.log(error);
-//             if (response.statusCode !== 200) {
-//                 return res.status(400).json({msg:'No Github profile found'})
-//             }
+// 		request(options, (error, response, body) => {
+// 			if (error) return console.log(error);
+// 			if (response.statusCode !== 200) {
+// 				return res.status(400).json({ msg: 'No Github profile found' });
+// 			}
 
-//             res.json(JSON.parse(body))
-//         })
+// 			res.json(JSON.parse(body));
+// 		});
+// 	} catch (err) {
+// 		console.error(err.message);
+// 		res.status(500).send('Github Error');
+// 	}
+// });
 
-//     } catch (err) {
-//         console.error(err.message);
-//         res.status(500).send('Github Error');
-
-//     }
-// })
 // @route    GET api/profile/github/:username
 // @desc     Get user repos from Github
 // @access   Public
@@ -340,7 +346,7 @@ router.get('/github/:username', (req, res) => {
 		};
 
 		request(options, (error, response, body) => {
-			if (error) console.error(error);
+			if (error) return console.error(error);
 
 			if (response.statusCode !== 200) {
 				return res.status(404).json({ msg: 'No Github profile found' });
