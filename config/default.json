@@ -2,5 +2,5 @@
     "MONGO_URI" :"mongodb://localhost:27017/blog-mern",
     "JWT_TOKEN" : "jfguasgduyfsauygdhjasf7*)&&^T^&%$%#$ETR##6%SADAE6X",
     "githubClientId":"0f4304052b50d107d8ec",
-    "githubSecret":"d728140a5435b76c838cf7a4b10a4c38dc010ed3"
+    "githubSecret":"61137d91aec9b850602fff30075f469d6e9dc1b8"
 }
