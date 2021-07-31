@@ -7,7 +7,7 @@ import Spinner from '../layout/Spinner';
 const ProfileGithub = ({ username, getGithubRepos, repos }) => {
 	useEffect(() => {
 		getGithubRepos(username);
-	}, [getGithubRepos]);
+	}, [getGithubRepos, username]);
 
 	return (
 		<div className='profile-github'>
@@ -49,7 +49,7 @@ const ProfileGithub = ({ username, getGithubRepos, repos }) => {
 
 ProfileGithub.propTypes = {
 	getGithubRepos: PropTypes.func.isRequired,
-	repos: PropTypes.object.isRequired,
+	repos: PropTypes.array.isRequired,
 	username: PropTypes.string.isRequired,
 };
 
