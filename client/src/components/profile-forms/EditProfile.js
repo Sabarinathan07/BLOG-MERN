@@ -78,17 +78,22 @@ const EditProfile = ({
 				<i className='fas fa-user'></i> Let's get some information to make your
 				profile stand out
 			</p>
-			<small>* = required field</small>
+			<small>* required</small>
 			<form className='form' onSubmit={(e) => onSubmit(e)}>
 				<div className='form-group'>
-					<select name='status' value={status} onChange={(e) => onChange(e)}>
-						<option value='0'>* Select Professional Status</option>
+					<select
+						name='status'
+						required
+						value={status}
+						onChange={(e) => onChange(e)}
+					>
+						<option value=''>* Select Professional Status</option>
 						<option value='Developer'>Developer</option>
 						<option value='Junior Developer'>Junior Developer</option>
 						<option value='Senior Developer'>Senior Developer</option>
 						<option value='Manager'>Manager</option>
-						<option value='Student or Learning'>Student or Learning</option>
-						<option value='Instructor'>Instructor or Teacher</option>
+						<option value='Student'>Student</option>
+						<option value='Instructor'>Instructor</option>
 						<option value='Intern'>Intern</option>
 						<option value='Other'>Other</option>
 					</select>

@@ -33,6 +33,21 @@ const Dashboard = ({
 					<Experience experience={profile.experience} />
 					<Education education={profile.education} />
 
+					{/* {profile.experience.length > 0 ? (
+						<Experience experience={profile.experience} />
+					) : (
+						<h4>
+							<br />
+							Experience credentials have not yet updated
+						</h4>
+					)}
+
+					{profile.education.length > 0 ? (
+						<Education education={profile.education} />
+					) : (
+						<h4>Education credentials have not yet updated</h4>
+					)} */}
+
 					<div className='my-2'>
 						<button className='btn btn-danger' onClick={() => deleteAccount()}>
 							<i className='fas fa-user'> Delete My Account</i>

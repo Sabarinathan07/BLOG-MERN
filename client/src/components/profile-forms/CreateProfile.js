@@ -64,7 +64,7 @@ const CreateProfile = ({
 				<i className='fas fa-user'></i> Let's get some information to make your
 				profile stand out
 			</p>
-			<small>* = required field</small>
+			<small>* required</small>
 			<form className='form' onSubmit={(e) => onSubmit(e)}>
 				<div className='form-group'>
 					<select name='status' value={status} onChange={(e) => onChange(e)}>
@@ -125,6 +125,7 @@ const CreateProfile = ({
 						name='skills'
 						value={skills}
 						onChange={(e) => onChange(e)}
+						required
 					/>
 					<small className='form-text'>
 						Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)

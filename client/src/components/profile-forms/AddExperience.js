@@ -34,7 +34,7 @@ const AddExperience = ({ addExperience, history }) => {
 				<i className='fas fa-code-branch'></i> Add any developer/programming
 				positions that you have had in the past
 			</p>
-			<small>* = required field</small>
+			<small>*required</small>
 			<form className='form' onSubmit={(e) => onSubmit(e)}>
 				<div className='form-group'>
 					<input
@@ -72,6 +72,7 @@ const AddExperience = ({ addExperience, history }) => {
 						name='from'
 						value={from}
 						onChange={(e) => onChange(e)}
+						required
 					/>
 				</div>
 				<div className='form-group'>

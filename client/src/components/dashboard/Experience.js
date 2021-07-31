@@ -8,8 +8,9 @@ const Experience = ({ experience, deleteExperience }) => {
 	const experiences = experience.map((exp) => (
 		<tr key={exp._id}>
 			<td>{exp.company}</td>
-			<td className='hide_sm'>{exp.title}</td>
-			<td>
+			{!exp.title ? <td>null</td> : <td>not null</td>}
+			<td className='hide-sm'>{exp.title}</td>
+			<td className='hide-sm'>
 				<Moment format='DD/MM/YYYY'>{exp.from}</Moment> -{' '}
 				{exp.to === null ? (
 					' Now'
@@ -17,6 +18,7 @@ const Experience = ({ experience, deleteExperience }) => {
 					<Moment format='DD/MM/YYYY'>{exp.to}</Moment>
 				)}
 			</td>
+
 			<td>
 				<button
 					onClick={() => deleteExperience(exp._id)}
@@ -37,7 +39,7 @@ const Experience = ({ experience, deleteExperience }) => {
 						<th>Company</th>
 						<th className='hide-sm'>Title</th>
 						<th className='hide-sm'>Years</th>
-						<th />
+						<th></th>
 					</tr>
 				</thead>
 
