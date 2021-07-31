@@ -1,6 +1,9 @@
 {
   "name": "blog-mern",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.17.0"
+  },
   "description": "A complete BLOG website with create, edit and delete",
   "main": "server.js",
   "scripts": {
