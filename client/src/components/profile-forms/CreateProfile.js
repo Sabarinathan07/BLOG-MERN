@@ -73,8 +73,9 @@ const CreateProfile = ({
 						<option value='Junior Developer'>Junior Developer</option>
 						<option value='Senior Developer'>Senior Developer</option>
 						<option value='Manager'>Manager</option>
-						<option value='Student or Learning'>Student or Learning</option>
-						<option value='Instructor'>Instructor or Teacher</option>
+						<option value='Student'>Student</option>
+						<option value='Instructor'>Instructor</option>
+						<option value='Teacher'>Teacher</option>
 						<option value='Intern'>Intern</option>
 						<option value='Other'>Other</option>
 					</select>

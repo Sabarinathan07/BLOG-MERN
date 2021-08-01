@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../utils/api';
 import { setAlert } from './alert';
 
 import {
@@ -14,7 +14,7 @@ import {
 //Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
 	try {
-		const res = await axios.get('/api/profile/me');
+		const res = await api.get('/profile/me');
 
 		dispatch({
 			type: GET_PROFILE,
@@ -33,7 +33,7 @@ export const getProfiles = () => async (dispatch) => {
 	dispatch({ type: CLEAR_PROFILE });
 
 	try {
-		const res = await axios.get('/api/profile/');
+		const res = await api.get('/profile/');
 
 		dispatch({
 			type: GET_PROFILES,
@@ -50,7 +50,7 @@ export const getProfiles = () => async (dispatch) => {
 //Get profile by ID
 export const getProfileById = (userId) => async (dispatch) => {
 	try {
-		const res = await axios.get(`/api/profile/user/${userId}`);
+		const res = await api.get(`/profile/user/${userId}`);
 
 		dispatch({
 			type: GET_PROFILE,
@@ -67,7 +67,7 @@ export const getProfileById = (userId) => async (dispatch) => {
 //Get Github repos
 export const getGithubRepos = (userId) => async (dispatch) => {
 	try {
-		const res = await axios.get(`/api/profile/github/${userId}`);
+		const res = await api.get(`/profile/github/${userId}`);
 
 		dispatch({
 			type: GET_REPOS,
@@ -86,13 +86,7 @@ export const createProfile =
 	(FormData, history, edit = false) =>
 	async (dispatch) => {
 		try {
-			const config = {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			};
-
-			const res = await axios.post('/api/profile', FormData, config);
+			const res = await api.post('/profile', FormData);
 
 			dispatch({
 				type: GET_PROFILE,
@@ -122,13 +116,7 @@ export const createProfile =
 // Add Experience
 export const addExperience = (FormData, history) => async (dispatch) => {
 	try {
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		};
-
-		const res = await axios.put('/api/profile/experience', FormData, config);
+		const res = await api.put('/profile/experience', FormData);
 
 		dispatch({
 			type: UPDATE_PROFILE,
@@ -154,13 +142,7 @@ export const addExperience = (FormData, history) => async (dispatch) => {
 // Add Education
 export const addEducation = (FormData, history) => async (dispatch) => {
 	try {
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		};
-
-		const res = await axios.put('/api/profile/education', FormData, config);
+		const res = await api.put('/profile/education', FormData);
 
 		dispatch({
 			type: UPDATE_PROFILE,
@@ -186,7 +168,7 @@ export const addEducation = (FormData, history) => async (dispatch) => {
 //Delete Experience
 export const deleteExperience = (id) => async (dispatch) => {
 	try {
-		const res = await axios.delete(`/api/profile/experience/${id}`);
+		const res = await api.delete(`/profile/experience/${id}`);
 
 		dispatch({
 			type: UPDATE_PROFILE,
@@ -205,7 +187,7 @@ export const deleteExperience = (id) => async (dispatch) => {
 //Delete Education
 export const deleteEducation = (id) => async (dispatch) => {
 	try {
-		const res = await axios.delete(`/api/profile/education/${id}`);
+		const res = await api.delete(`/profile/education/${id}`);
 
 		dispatch({
 			type: UPDATE_PROFILE,
@@ -229,7 +211,7 @@ export const deleteAccount = () => async (dispatch) => {
 		)
 	) {
 		try {
-			await axios.delete('/api/profile');
+			await api.delete('/profile');
 
 			dispatch({ type: CLEAR_PROFILE });
 			dispatch({ type: ACCOUNT_DELETED });

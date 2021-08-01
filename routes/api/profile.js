@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const request = require('request');
 const config = require('config');
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
-
+const normalize = require('normalize-url');
+const axios = require('axios');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const Post = require('../../models/Post');
@@ -63,18 +63,29 @@ router.post(
 		} = req.body;
 
 		//build profile object
-
-		const profileFields = {};
-		profileFields.user = req.user.id;
-		if (company) profileFields.company = company;
-		if (website) profileFields.website = website;
-		if (location) profileFields.location = location;
-		if (bio) profileFields.bio = bio;
-		if (status) profileFields.status = status;
-		if (githubusername) profileFields.githubusername = githubusername;
-		if (skills) {
-			profileFields.skills = skills.split(',').map((skill) => skill.trim());
-		}
+		const profileFields = {
+			user: req.user.id,
+			company,
+			location,
+			website: website === '' ? '' : normalize(website, { forceHttps: true }),
+			bio,
+			skills: Array.isArray(skills)
+				? skills
+				: skills.split(',').map((skill) => ' ' + skill.trim()),
+			status,
+			githubusername,
+		};
+		// const profileFields = {};
+		// profileFields.user = req.user.id;
+		// if (company) profileFields.company = company;
+		// if (website) profileFields.website = website;
+		// if (location) profileFields.location = location;
+		// if (bio) profileFields.bio = bio;
+		// if (status) profileFields.status = status;
+		// if (githubusername) profileFields.githubusername = githubusername;
+		// if (skills) {
+		// 	profileFields.skills = skills.split(',').map((skill) => skill.trim());
+		// }
 
 		//build social array
 		profileFields.social = {};
@@ -270,7 +281,7 @@ router.put(
 			res.json(profile);
 		} catch (err) {
 			console.error(err.message);
-			res.status(500).send('Server Error');
+			return res.status(500).send('Server Error');
 		}
 	}
 );
@@ -293,7 +304,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 		return res.json(profile);
 	} catch (err) {
 		console.error(err.message);
-		res.status(500).send('Server Error');
+		return res.status(500).send('Server Error');
 	}
 });
 
@@ -331,32 +342,22 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 // @route    GET api/profile/github/:username
 // @desc     Get user repos from Github
 // @access   Public
-router.get('/github/:username', (req, res) => {
+router.get('/github/:username', async (req, res) => {
 	try {
-		const options = {
-			uri: encodeURI(
-				`https://api.github.com/users/${
-					req.params.username
-				}/repos?per_page=5&sort=created:asc&client_id=${config.get(
-					'githubClientId'
-				)}&client_secret=${config.get('githubSecret')}`
-			),
-			method: 'GET',
-			headers: { 'user-agent': 'node.js' },
+		const uri = encodeURI(
+			`https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
+		);
+
+		const headers = {
+			'user-agent': 'node.js',
+			Authorization: `token${config.get('githubToken')}`,
 		};
 
-		request(options, (error, response, body) => {
-			if (error) console.error(error);
-
-			if (response.statusCode !== 200) {
-				return res.status(404).json({ msg: 'No Github profile found' });
-			}
-
-			res.json(JSON.parse(body));
-		});
+		const githubResponse = await axios.get(uri, { headers });
+		return res.json(githubResponse.data);
 	} catch (err) {
 		console.error(err.message);
-		res.status(500).send('Server Error');
+		return res.status(404).send('No github profile found');
 	}
 });
 

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Routes from './components/router/Routes';
+import { LOGOUT } from './actions/types';
 
 //redux
 import { Provider } from 'react-redux';
@@ -18,7 +19,16 @@ if (localStorage.token) {
 
 const App = () => {
 	useEffect(() => {
+		// check for token in LS
+		if (localStorage.token) {
+			setAuthToken(localStorage.token);
+		}
 		store.dispatch(loadUser());
+
+		// log user out from all tabs if they log out in one tab
+		window.addEventListener('storage', () => {
+			if (!localStorage.token) store.dispatch({ type: LOGOUT });
+		});
 	}, []);
 
 	return (
