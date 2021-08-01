@@ -1,6 +1,0 @@
-{
-    "MONGO_URI":"mongodb+srv://sabari-db:sabarinathan@mern-stack.x175l.mongodb.net/Blog-MERN?retryWrites=true&w=majority",
-    "JWT_TOKEN" : "jfguasgduyfsauygdhjasf7*)&&^T^&%$%#$ETR##6%SADAE6X",
-    "githubClientId":"0f4304052b50d107d8ec",
-    "githubSecret":"61137d91aec9b850602fff30075f469d6e9dc1b8"
-}
