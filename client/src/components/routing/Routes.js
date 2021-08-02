@@ -14,7 +14,7 @@ import Post from '../post/Post';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from './PrivateRoute';
 
-const Routes = () => {
+const Routes = (props) => {
 	return (
 		<section className='container'>
 			<Alert />
@@ -28,7 +28,6 @@ const Routes = () => {
 				<PrivateRoute exact path='/edit-profile' component={EditProfile} />
 				<PrivateRoute exact path='/add-experience' component={AddExperience} />
 				<PrivateRoute exact path='/add-education' component={AddEducation} />
-
 				<PrivateRoute exact path='/posts' component={Posts} />
 				<PrivateRoute exact path='/posts/:id' component={Post} />
 				<Route component={NotFound} />
