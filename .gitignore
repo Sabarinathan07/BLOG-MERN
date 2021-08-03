@@ -3,3 +3,5 @@ config/default.json
 client/build
 client/.eslintcache
 .DS_Store/
+client/src/components/.DS_Store
+.DS_Store
