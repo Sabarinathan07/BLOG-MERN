@@ -14,6 +14,7 @@ import Post from '../commentForm/Post';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from './PrivateRoute';
 
+
 const Routes = (props) => {
 	return (
 		<section className='container'>
